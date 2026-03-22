@@ -2856,6 +2856,41 @@
 </head>
 <body>
 
+<!-- PASSWORD GATE (only on remote, not local file://) -->
+<div id="password-gate" style="display:none; position:fixed; inset:0; z-index:99999; background:#F9FAFB; font-family:'Montserrat',sans-serif;">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; width:340px;">
+    <div style="font-size:24px; font-weight:700; color:#101828; margin-bottom:8px;">Co-Design Chat</div>
+    <div style="font-size:14px; color:#6E6E6E; margin-bottom:32px;">Enter password to view prototype</div>
+    <input id="gate-input" type="password" placeholder="Password" style="width:100%; padding:12px 16px; border:1px solid #DADADA; border-radius:9px; font-size:14px; font-family:'Montserrat',sans-serif; outline:none; box-sizing:border-box;" onkeydown="if(event.key==='Enter')checkGate()">
+    <div id="gate-error" style="color:#E04545; font-size:13px; margin-top:8px; display:none;">Wrong password</div>
+    <button onclick="checkGate()" style="margin-top:16px; width:100%; padding:12px; background:#0B99FF; color:#fff; border:none; border-radius:9px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Montserrat',sans-serif;">Enter</button>
+  </div>
+</div>
+<script>
+(function(){
+  // Skip password on local files
+  if(location.protocol==='file:'){return;}
+  // Check if already authenticated
+  if(sessionStorage.getItem('codesign-auth')==='1'){return;}
+  // Show gate
+  var gate=document.getElementById('password-gate');
+  gate.style.display='block';
+  document.querySelector('.app').style.display='none';
+})();
+function checkGate(){
+  var pw=document.getElementById('gate-input').value;
+  // Password hash check (simple)
+  if(pw==='CoDesign2026!'){
+    sessionStorage.setItem('codesign-auth','1');
+    document.getElementById('password-gate').style.display='none';
+    document.querySelector('.app').style.display='';
+  } else {
+    document.getElementById('gate-error').style.display='block';
+    document.getElementById('gate-input').value='';
+  }
+}
+</script>
+
 <div class="app">
   <!-- TOP BAR -->
   <header class="topbar">
