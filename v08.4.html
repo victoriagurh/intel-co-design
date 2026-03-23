@@ -5087,6 +5087,7 @@ function checkGate(){
 - Proficient in multiple programming languages including Python, JavaScript, TypeScript, Java, C++, C#, Go, Rust, Ruby, PHP, Swift, and Kotlin
 - Deep knowledge of web development (React, Vue, Angular, Node.js, Django, Flask, FastAPI)
 - Familiar with databases (SQL, NoSQL), cloud services (AWS, GCP, Azure)`,
+    skills: ['Code review', 'Unit testing', 'Documentation'],
     starters: ['Review & refactor code', 'Debug & fix errors', 'Generate unit tests', 'Explain code logic'],
     icon: '<path d="M7 7l-4 4 4 4M13 7l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
   };
@@ -5151,6 +5152,15 @@ function checkGate(){
             <textarea rows="8">${caFilledData.instructions}</textarea>
           </div>
           <div class="ca-field">
+            <label>Skills</label>
+            ${(caFilledData.skills || []).map(s => `
+              <div class="ca-starter-item">
+                <input type="text" value="${s}" />
+                <button class="remove-btn"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+              </div>`).join('')}
+            <div class="ca-starter-item"><input type="text" placeholder="Add a skill" /></div>
+          </div>
+          <div class="ca-field">
             <label>Actions</label>
             ${caFilledData.starters.map(s => `
               <div class="ca-starter-item">
@@ -5174,6 +5184,10 @@ function checkGate(){
             <label>Instructions</label>
             <p class="subtitle">Conversations with your Super Agent can potentially include part or all of the instructions provided.</p>
             <textarea rows="6" placeholder="What does this Super Agent do? How does it behave? What should it avoid doing?"></textarea>
+          </div>
+          <div class="ca-field">
+            <label>Skills</label>
+            <div class="ca-starter-item"><input type="text" placeholder="Add a skill" /></div>
           </div>
           <div class="ca-field">
             <label>Actions</label>
